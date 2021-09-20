@@ -1,0 +1,45 @@
+{% extends "ecom/base.html" %}
+{% load static %}
+{% block content %}
+ <div class="container">
+   <div class="row mt-5">
+     <div class="col-md-8 mx-auto">
+       <table class="table table-stripped" id="dev-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Remove From Cart</th>
+
+        </tr>
+      </thead>
+      {% for p in products %}
+{% if p %}
+
+    <tr>
+      <td> {{p.name}}</td>
+      <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+      <td>{{p.price}}</td>
+      <td>{{p.description|slice:":100"}}</td>
+
+      <td><a class="btn btn-danger btn-xs" href="{% url 'remove-from-cart' p.id  %}">Remove Item</span></a></td>
+
+    </tr>
+    {%else%}
+    <br><br><br>
+    <h1>no products</h1>
+    {% endif %}
+    {% endfor %}
+    <tr>
+      <td align=right class="text-success" colspan=5>Total {{total}}</td>
+    </tr>
+    <tr>
+    <td colspan=5 align=right>   <a href="/customer-address"><button class="btn btn-warning" >Purchase</a></td>
+    </tr>
+     </table>
+      </div>
+  </div>
+</div>
+{% endblock %}
